@@ -10,19 +10,16 @@ import { getWPHomePage } from './services/wp-services'
 // console.log(VITE_REACT_APP_BACKEND_URL)
 // let abc = "asd";
 function App() {
-  let [wpContent, setWpContent] = useState('');
+  let [wpContent, setWpContent] = useState('sdf');
 
   useEffect(() => {
 
     async function abc() {
       const tmp = await getWPHomePage();
-      if (tmp) wpContent = tmp;
-      console.log(tmp)
+      setWpContent(tmp.content.rendered);
     }
 
     abc();
-
-
   }, []);
 
   return (
@@ -38,7 +35,8 @@ function App() {
 
         <div className='wp-content mt-5'>
           <p>Below are wp-content</p>
-          <p></p>
+          
+          <p dangerouslySetInnerHTML={{__html: wpContent}} ></p>
         </div>
       </div>
 
